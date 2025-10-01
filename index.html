@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="catch_screen"></div>
+    <div class="body">
+        <img src="./assets/logo.png" alt="logo" class="logo">
+        <div class="playground">
+            <div class="pokes">
+                <div class="pokemon">
+                    <span class="lvl">Lv. 1</span>
+                    <div class="details">
+                        <span class="name">Pikachu</span>
+                        <div class="hp">
+                            <div class="bar">
+                                <div class="health" id="progressbar-character"></div>
+                            </div>
+                            <span class="text" id="health-character">100 / 100</span>
+                        </div>
+                    </div>
+                    <img src="./assets/pikachu.png" alt="Pikachu" class="sprite">
+                </div>
+                <div class="pokemon">
+                    <span class="lvl">Lv. 1</span>
+                    <div class="details">
+                        <span class="name">Charmander</span>
+                        <div class="hp">
+                            <div class="bar">
+                                <div class="health" id="progressbar-enemy1"></div>
+                            </div>
+                            <span class="text" id="health-enemy1">100 / 100</span>
+                        </div>
+                    </div>
+                    <img src="./assets/charmander.png" alt="Charmander" class="sprite">
+                </div>
+                <div class="pokemon">
+                    <span class="lvl">Lv. 1</span>
+                    <div class="details">
+                        <span class="name">Bulbasaur</span>
+                        <div class="hp">
+                            <div class="bar">
+                                <div class="health" id="progressbar-enemy2"></div>
+                            </div>
+                            <span class="text" id="health-enemy2">100 / 100</span>
+                        </div>
+                    </div>
+                    <img src="./assets/bulbasaur.png" alt="Bulbasaur" class="sprite">
+                </div>
+            </div>
+        </div>
+        <div class="control">
+            <button class="button" id="btn-kick">Thunder Jolt</button>
+            <button class="button" id="btn-thunder">Thunder Bolt</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
