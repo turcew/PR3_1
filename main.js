@@ -1,11 +1,5 @@
-/* -------------------------------------------------
-   УТИЛІТИ
-------------------------------------------------- */
 const random = (max) => Math.ceil(Math.random() * max);
 
-/* -------------------------------------------------
-   ЛОГИ БОЮ
-------------------------------------------------- */
 const logs = [
   '[ПЕРСОНАЖ №1] вспомнил что-то важное, но неожиданно [ПЕРСОНАЖ №2], не помня себя от испуга, ударил в предплечье врага.',
   '[ПЕРСОНАЖ №1] поперхнулся, и за это [ПЕРСОНАЖ №2] с испугу приложил прямой удар коленом в лоб врага.',
@@ -19,10 +13,6 @@ const logs = [
   '[ПЕРСОНАЖ №1] пытался что-то сказать, но вдруг, неожиданно [ПЕРСОНАЖ №2] со скуки, разбил бровь сопернику.'
 ];
 
-/**
- * Повертає випадковий рядок логу, підставляючи імена персонажів
- * та інформацію про втрати/залишок HP.
- */
 function generateLog({ name: firstName }, { name: secondName }, damage, hpLeft) {
   const text = logs[random(logs.length) - 1]
     .replace(/\[ПЕРСОНАЖ №1\]/g, firstName)
@@ -31,9 +21,6 @@ function generateLog({ name: firstName }, { name: secondName }, damage, hpLeft) 
   return `${text} -${damage} [${hpLeft}/100]`;
 }
 
-/* -------------------------------------------------
-   ФАБРИКА ПЕРСОНАЖІВ (з деструктуризацією)
-------------------------------------------------- */
 function createPokemon({
   name,
   defaultHP = 100,
@@ -72,22 +59,16 @@ function createPokemon({
   return { name, damageHP, defaultHP, changeHP, renderHP };
 }
 
-/* -------------------------------------------------
-   ДОКУМЕНТ
-------------------------------------------------- */
 const {
   $btnKick,
   $btnThunder,
-  $logs // <div id="logs"></div>
+  $logs
 } = {
   $btnKick: document.getElementById('btn-kick'),
   $btnThunder: document.getElementById('btn-thunder'),
   $logs: document.getElementById('logs')
 };
 
-/* -------------------------------------------------
-   ПЕРСОНАЖІ
-------------------------------------------------- */
 const character = createPokemon({
   name: 'Pikachu',
   elHP: document.getElementById('health-character'),
@@ -106,19 +87,12 @@ const enemy2 = createPokemon({
   elProgressbar: document.getElementById('progressbar-enemy2')
 });
 
-/* -------------------------------------------------
-   АТАКА
-------------------------------------------------- */
 function attack(damage, targets, attacker) {
   targets.forEach(t => t.changeHP(random(damage), attacker));
 }
 
-/* -------------------------------------------------
-   ПОДІЇ КНОПОК
-------------------------------------------------- */
 $btnKick.addEventListener('click', () => {
   console.log('Kick');
-  // хто натиснув кнопку – той атакує
   attack(20, [character, enemy1, enemy2], character);
 });
 
@@ -127,9 +101,6 @@ $btnThunder.addEventListener('click', () => {
   attack(30, [character, enemy1, enemy2], character);
 });
 
-/* -------------------------------------------------
-   ІНІЦІАЛІЗАЦІЯ
-------------------------------------------------- */
 function init() {
   console.log('Start Game!');
   character.renderHP();
@@ -137,3 +108,49 @@ function init() {
   enemy2.renderHP();
 }
 init();
+
+function createClickCounter(buttonId, maxClicks = 6) {
+  let clicks = 0;
+
+  return function () {
+    if (clicks >= maxClicks) {
+      console.log(`Кнопка "${buttonId}" вичерпала ліміт (${maxClicks} натискань)`);
+      return false;
+    }
+
+    clicks++;
+    const remaining = maxClicks - clicks;
+
+    console.log(`Натискання на "${buttonId}": ${clicks}, залишилося: ${remaining}`);
+
+    $logs.insertAdjacentHTML(
+      'afterbegin',
+      `<p style="color: #805cff; font-weight: bold;">
+        [КНОПКА] ${buttonId}: натиснуто ${clicks} раз, залишилося ${remaining}
+      </p>`
+    );
+
+    return true;
+  };
+}
+
+const countKick = createClickCounter('Thunder Jolt', 6);
+const countThunder = createClickCounter('Thunder Bolt', 6);
+
+$btnKick.addEventListener('click', () => {
+  if (countKick()) {
+    console.log('Kick');
+    attack(20, [character, enemy1, enemy2], character);
+  } else {
+    $btnKick.disabled = true;
+  }
+});
+
+$btnThunder.addEventListener('click', () => {
+  if (countThunder()) {
+    console.log('Thunder Attack');
+    attack(30, [character, enemy1, enemy2], character);
+  } else {
+    $btnThunder.disabled = true;
+  }
+});
