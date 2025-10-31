@@ -472,3 +472,16 @@ h1 {
 .action label {
     padding: 6px 0;
 }
+
+.pokemon .details .hp .bar .health {
+  background: linear-gradient(to right, lime, #8bf500);
+  transition: width 0.3s ease;
+}
+
+.pokemon .details .hp .bar .health.low {
+  background: linear-gradient(to right, #ffcc00, #f1f500);
+}
+
+.pokemon .details .hp .bar .health.critical {
+  background: linear-gradient(to right, #d20000, #f51700);
+}
