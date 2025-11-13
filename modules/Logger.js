@@ -23,7 +23,7 @@ export class Logger {
       .replace(/\[ПЕРСОНАЖ №1\]/g, attacker.name)
       .replace(/\[ПЕРСОНАЖ №2\]/g, victim.name);
 
-    return `${text} -${damage} [${hpLeft}/100]`;
+    return `${text} -${damage} [${hpLeft}/${victim.defaultHP}]`;
   }
 
   log(message, isSystem = false) {

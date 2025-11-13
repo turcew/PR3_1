@@ -37,16 +37,10 @@ export class Pokemon {
       this.damageHP = 0;
       this.logger.log(this.logger.generateLog(attacker, this, damage, 0));
       this.logger.logDefeat(this);
-      this.disableButtons();
     } else {
       this.damageHP -= damage;
       this.logger.log(this.logger.generateLog(attacker, this, damage, this.damageHP));
     }
     this.renderHP();
-  }
-
-  disableButtons() {
-    $('#btn-kick').disabled = true;
-    $('#btn-thunder').disabled = true;
   }
 }
