@@ -157,13 +157,12 @@ function attack(damage, targets, attacker) {
   gameOver();
 }
 
-// Remove initial buttons
 const initialButtons = document.querySelectorAll('.control .button');
 initialButtons.forEach(btn => btn.remove());
 
-// Add start button
 const $btnStart = createButton('btn-start', 'START GAME', () => {
   startGame();
   $btnStart.remove();
 });
+
 $control.appendChild($btnStart);
