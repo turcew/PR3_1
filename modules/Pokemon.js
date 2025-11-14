@@ -26,7 +26,6 @@ export class Pokemon {
     const percent = (this.damageHP / this.defaultHP) * 100;
     this.elProgressbar.style.width = `${percent}%`;
 
-    // Додаємо класи для кольору
     this.elProgressbar.classList.remove('low', 'critical');
     if (percent <= 50 && percent > 20) this.elProgressbar.classList.add('low');
     if (percent <= 20) this.elProgressbar.classList.add('critical');
@@ -43,4 +42,5 @@ export class Pokemon {
     }
     this.renderHP();
   }
+
 }
